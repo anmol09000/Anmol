@@ -13,245 +13,228 @@ app.use(function (req, res, next) {
   );
   next();
 });
-var port =process.env.PORT||2410;
+const port = 2410;
 app.listen(port, () => console.log(`Node app listening on port ${port}!`));
 
 let products = [
-    {
-       id: 1,
-      category: "Watches",
-      description:
-        "The look that made Swiss watches the toast of the world. Still unbeatable.",
-      imgLink:
-        "https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-      name: "Silver",
-      price: 1600
-    },
-    {
-       id: 2,
-      category: "Watches",
-      description: "Dark, black beauty. Sure to look good on the wrist.",
-      imgLink:
-        "https://images.pexels.com/photos/1697566/pexels-photo-1697566.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      name: "Black",
-      price: 899
-    },
-    {
-       id: 3,
-      category: "Watches",
-      description:
-        "Multi chronographs, stop watch, timers. Altimeter. What else.",
-      imgLink:
-        "https://images.pexels.com/photos/2113994/pexels id-photo-2113994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      name: "Chronograph",
-      price: 1199
-    },
-    {
-       id: 4,
-      category: "Watches",
-      description: "For all ages. For all times. Classic Look. Classic leather.",
-      imgLink:
-        "https://images.pexels.com/photos/236915/pexels-photo-236915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      name: "Classic",
-      price: 1250
-    },
-    {
-       id: 5,
-      category: "Watches",
-      description: "The original Apple Watch. Still a great buy.",
-      imgLink:
-        "https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      name: "Apple v1",
-      price: 999
-    },
-    {
-       id: 6,
-      category: "Watches",
-      description: "Mechanical 28 jewelled watch. Connoisseur delight.",
-      imgLink:
-        "https://images.pexels.com/photos/47339/mechanics-movement-feinmechanik-wrist-watch-47339.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      name: "Jewelled",
-      price: 1999
-    },
-    {
-       id: 7,
-      category: "Sunglasses",
-      description: "Desirable, reddish tint. Sure to attract attention.",
-      imgLink:
-        "https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      name: "Tinted Red",
-      price: 399
-    },
-    {
-       id: 8,
-      category: "Sunglasses",
-      description: "Nostalgic, bluish tint, sure to get memories back. Vintage.",
-      imgLink:
-        "https://images.pexels.com/photos/701877/pexels-photo-701877.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      name: "Oldies",
-      price: 199
-    },
-    {
-       id: 9,
-      category: "Sunglasses",
-      description: "Trendy, young sunglasses with retro look. Teen favourite.",
-      imgLink:
-        "https://images.pexels.com/photos/1362558/pexels-photo-1362558.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      name: "Youthful",
-      price: 219
-    },
-    {
-       id: 10,
-      category: "Sunglasses",
-      description: "Chic sunglasses. Classic dark shades, sure to generate envy.",
-      imgLink:
-        "https://images.pexels.com/photos/65659/glasses-glass-circle-light-transmittance-65659.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      name: "Classic Dark",
-      price: 249
-    },
-    {
-       id: 11,
-      category: "Watches",
-      description: "Apple Watch Version 2. A delight.",
-      imgLink:
-        "https://images.pexels.com/photos/277406/pexels-photo-277406.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      name: "Apple v2",
-      price: 1499
-    },
-    {
-       id: 12,
-      category: "Belts",
-      description: "Stylish formal brown belt. An office favourite.",
-      imgLink:
-        "https://as1.ftcdn.net/jpg/02/14/48/72/500_F_214487233_Aahw3DohDu6dSSfMqWCcU1QDatxpDt6E.jpg",
-      name: "Fab Brown",
-      price: 149
-    },
-    {
-       id: 13,
-      category: "Handbags",
-      description: "Desirable travel bag. Mix of convenience and style",
-      imgLink:
-        "https://images.pexels.com/photos/2534961/pexels-photo-2534961.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      name: "Travel Lite",
-      price: 199
-    },
-    {
-       id: 14,
-      category: "Handbags",
-      description: "3 Pockets, 2 Zips -  ideal for shopping and parties",
-      imgLink:
-        "https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      name: "Chic Leather",
-      price: 749
-    },
-    {
-       id: 15,
-      category: "Belts",
-      description: "Signature belt from Gucci ",
-      imgLink:
-        "https://img.shopstyle-cdn.com/pim/c7/a6/c7a695a8db5a375b222f15bea045bdea_xlarge.jpg",
-      name: "Raw Edge",
-      price: 799
-    },
-    {
-       id: 16,
-      category: "Belts",
-      description: "Iconic metallic belt",
-      imgLink:
-        "https://img.shopstyle-cdn.com/pim/81/78/8178fa6c3b27d3f3e0fe18d019c992ea_xlarge.jpg",
-      name: "Goofy Black",
-      price: 349
-    },
-    {
-       id: 17,
-      category: "Sunglasses",
-      description: "Min black faded front shades",
-      imgLink:
-        "https://cdn.shopify.com/s/files/1/0898/5824/products/QUAY_HIGHKEY_Mini_BLACK_FADE_FRONT_450x.jpg",
-      name: "Quay Shades",
-      price: 479
-    },
-    {
-       id: 18,
-      category: "Belts",
-      description: "Evergreen formal belt with classic buckle",
-      imgLink:
-        "https://as1.ftcdn.net/jpg/02/02/45/86/500_F_202458696_CYlcJbJfjgUb2VgQnPSUxHU79v6I3SC6.jpg",
-      name: "Classic Brown",
-      price: 128
-    },
-    {
-       id: 19,
-      category: "Handbags",
-      description: "Beach handbag to go along with a beach holiday",
-      imgLink:
-        "https://images.pexels.com/photos/2305000/pexels-photo-2305000.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      name: "Funky Jute",
-      price: 99
-    }
-  ];
-
-  let orders=[];
-  let users=[{email:"email@test.com",password:"test1234"},{email:"bob@gmail.com",password:"Bob56"}];
+   
+		{
+      prodCode:	"DS2S245",
+      category:	"Dining",
+      desc:	[
+          "Two	seater	Dining	Set",
+          "Built	from	High	quality	wood",
+          "1	year	warranty"
+      ],
+      img:
+          "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSE8uIdy_Zwi68DLvGa3ebtTaaW9Wap6Vnt_OXUtyLGEifBvOmSRdf2QmaMV_NgoB0OD1PAWXFsvAfVf9MnHSU-L98_yuqu7ei07f4hOw68&usqp=CAE",
+      ingredients:	[
+          {	ingName:	"Dining	Table",	qty:	1	},
+          {	ingName:	"Chair",	qty:	2	}
+      ],
+      title:	"Two	seater	Dining	Set"
+  },
+  {
+      prodCode:	"DS6S761",
+      category:	"Dining",
+      desc:	[
+          "Six	Seater	Dining	Set	in	Antique	Cherry	Colour",
+          "Assembly	by	Skilled	Carpenters",
+          "Made	from	Teak	wood"
+      ],
+      img:
+          "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcS26fVV0RuJa_B7gwGYlLIGz4rMljwYQxFSPav2BDTbcpMJYZDIjF6uHV2Xi55LXD9kke3BzD8yvnDPowvvwWcq05UftzJe&usqp=CAE",
+      ingredients:	[
+          {	ingName:	"Dining	Table",	qty:	1	},
+          {	ingName:	"Chair",	qty:	4	},
+          {	ingName:	"Bench",	qty:	1	}
+      ],
+      title:	"Six	Seater	Dining	Set"
+  },
+  {
+      prodCode:	"DS4S177",
+      category:	"Dining",
+      desc:	[
+          "Mild	Steel	Four	Seater	Dining	Set	in	Black	Colour",
+          "Knock-down	construction	for	easy	transportation"
+      ],
+      img:
+          "https://rukminim2.flixcart.com/image/832/832/kthjy4w0/dining-set/z/h/x/120-black-0-0-mild-steel-48-rectangle-55-89-28-90-4-seater-140-original-imag6tcezf5wurfq.jpeg?q=70",
+      ingredients:	[
+          {	ingName:	"Dining	Table",	qty:	1	},
+          {	ingName:	"Chair",	qty:	4	}
+      ],
+      title:	"Mild	Steel	Dining	Set"
+  },
+  {
+      prodCode:	"DC2S705",
+      category:	"Dining",
+      desc:	[
+          "Solid	Wood	Dining	Chair	Set	of	Two	in	Dark	Walnut	Colour",
+          "Beautiful	design	carved	on	dining	chair",
+          "Dining	chair	seat	upholstered	in	dark	brown	Fabric"
+        ],
+				img:
+						"https://www.orangetree.in/cdn/shop/files/Gallery-1AcmeDiningChairSetOf2.jpg?v=1692271042",
+				ingredients:	[{	ingName:	"Chair",	qty:	2	}],
+				title:	"Dining	Chair	Set"
+		},
+		{
+				prodCode:	"BN1S388",
+				category:	"Dining",
+				desc:	[
+						"Solid	Wood	Dining	Bench	in	Dark	Walnut	Colour",
+						"Comfortable	bench	for	a	relaxed	dinner"
+				],
+				img:
+						"https://www.home-designing.com/wp-content/uploads/2019/09/Industrial-Style-Dining-Bench-With-Back-Metal-Legs-Wood-Seat-Distressed-Rustic-Finish-600x600.jpg",
+				ingredients:	[{	ingName:	"Bench",	qty:	1	}],
+				title:	"Dining	Bench"
+		},
+		{
+				prodCode:	"SF2S532",
+				category:	"Drawing",
+				desc:	[
+						"Characteristic	Rising	Track	Arm	Rest	Design",
+						"Premium	High	Gloss	Leatherette	Upholstery",
+						"Independent	Headrest	And	Lumber	Support"
+				],
+				img:
+						"https://ii1.pepperfry.com/media/catalog/product/m/i/1600x800/miranda-fabric-2-seater-sofa-in-cool-cobalt-colour-miranda-fabric-2-seater-sofa-in-cool-cobalt-colou-zkk4lp.jpg",
+				ingredients:	[{	ingName:	"Sofa",	qty:	1	}],
+				title:	"Two	Seater	Sofa"
+		},
+		{
+				prodCode:	"SF2S206",
+				category:	"Drawing",
+				desc:	["Two	Seater	Sofa	in	Blue	Colour",	"Assembly	by	Skilled	Carpenters"],
+				img:
+						"https://ouchcart.com/cdn/shop/products/Rousseau_Loveseat.webp?v=1649323895&width=700",
+				ingredients:	[{	ingName:	"Sofa",	qty:	1	}],
+				title:	"Two	Seater	Sofa"
+		},
+		{
+				prodCode:	"SFBD311",
+				category:	"Drawing",
+				desc:	[
+						"Sofa	Cum	bed	in	Brown	Colour",
+						"Ply-wood	construction	with	hand	polished	finish",
+						"Removable	fabric	cover	on	best	quality	foam	mattress",
+						"Throw	cushions	and	bolsters	come	with	the	product"
+				],
+				img:
+						"https://sofabed.pk/wp-content/uploads/2022/08/Chinafurniture-simple-modern-sofa-bed-multifunctional-folding-dual-purpose-small-apartment-fabric-sofa.jpg_Q90.jpg",
+				ingredients:	[{	ingName:	"Sofa",	qty:	1	},	{	ingName:	"Cushions",	qty:	2	}],
+				title:	"Sofa	cum	Bed"
+		},
+		{
+				prodCode:	"BDQS381",
+				category:	"Bedroom",
+        desc:	[
+          "Wood	Box	Storage	King	Size	Bed	in	Wenge	Colour	",
+          "Box	Storage	included	for	Maximum	space	utilization",
+          "Mattress	is	included"
+      ],
+      img:
+          "https://www.godrejinterio.com/imagestore/B2C/56101515SD00515/56101515SD00515_A1_803x602.jpg",
+      ingredients:	[{	ingName:	"Bed",	qty:	1	},	{	ingName:	"Mattress",	qty:	2	}],
+      title:	"King	size	Bed"
+  },
+  {
+      prodCode:	"BDQS229",
+      category:	"Bedroom",
+      desc:	[
+          "Wood	Hydraulic	Storage	Queen	Size	Bed",
+          "Half	hydraulic	storage",
+          "Superior	E2	grade	MDF	used	with	melamine	finish"
+      ],
+      img:"https://woodentwist.com/cdn/shop/products/WhatsAppImage2022-07-25at11.06.00PM.1278_938x938.jpg?v=1689871645",
+      ingredients:	[{	ingName:	"Bed",	qty:	1	}],
+      title:	"Queen	size	Bed"
+  },
+  {
+      prodCode:	"ST1T425",
+      category:	"Study",
+      desc:	[
+          "Wood	Study	Table	in	Walnut	Colour",
+          "Assembly	by	Skilled	Carpenters",
+          "Built	from	High	Quality	Wood"
+      ],
+      img:
+        "https://wakefitdev.gumlet.io/img/study-tables/neptune/0c.jpg?w=1600",
+      ingredients:	[{	ingName:	"Study	Table",	qty:	1	}],
+      title:	"Study	Table"
+  },
+  {
+      prodCode:	"ST1T588",
+      category:	"Study",
+      desc:	[
+          "	Wood	Study	Table	in	Highgloss	White	&	Blue	Colour",
+          "Study	table	comes	with	bookshelf	on	top,	5	drawers	&	1	open	shelf",
+          "Superior	quality	MDF	with	stain	resistant	melamine	finish"
+      ],
+      img:
+          "https://ik.imagekit.io/durian1985/Durian/durian/product/800x800/666101683123019.jpg",
+      ingredients:	[{	ingName:	"Study	Table",	qty:	1	}],
+      title:	"Study	Table"
+  }
+]
+let users=[{email:"user@user.com",password:"user123",role:"user"},{email:"admin@admin.com",password:"admin123",role:"admin"}]
 
 app.get("/products",function(req,res){
-    let category = req.query.category;
-    let data = [...products];
-    if(category){
-        data = data.filter((a)=>a.category===category);
-    }
-    res.send(data);
+  res.send(products);
 });
-
-app.get("/products/:id",function(req,res){
-    let id = +req.params.id;
-    let product = products.find((a)=>a.id === id);
-    if(product)
-        res.send(product);
-    else 
-        res.status(404).send("Not Found");
+app.get("/products/:category/:prodCode",function(req,res){
+  let {prodCode,category} = req.params;  
+  let product = products.find((a)=>a.prodCode===prodCode && a.category === category);
+  if(product) res.send(product);
+  else res.status(404).send("Not Found");
+});
+app.get("/products/:category", function(req, res) {
+  let category = req.params.category;
+  let filteredProducts = products.filter((a) => a.category === category);
+  console.log(category);
+  console.log(filteredProducts);
+  if (filteredProducts.length > 0) {
+    res.send(filteredProducts);
+  } else {
+    res.status(404).send("Not Found");
+  }
+});
+app.post("/login",function(req,res){
+  let {email,password}=req.body;
+  let user = users.find((a)=>a.email===email && a.password === password);
+  if(user){
+    res.send({email:user.email,role:user.role});
+  }else{
+    res.status(401).send("Check email or password");
+  }
+})
+app.put("/products/:category/:prodCode",function(req,res){
+  let {category,prodCode}=req.params;
+  let body = req.body;
+  let index = products.findIndex((a)=>a.category===category && a.prodCode === prodCode);
+  if(index>=0){
+    let updated = {...body};
+    products[index]=updated;
+    res.send(updated);
+  }else{
+    res.status(404).send("Not Found")
+  }
 })
 app.post("/products",function(req,res){
-    let body = req.body;
-    let newId = products.reduce((acc,curr)=>curr.id>acc?curr.id:acc, 0)
-    let product = {id:newId+1, ...body};
-    products.push(product);
-    res.send(product);
-})
-app.put("/products/:id",function(req,res){
-    let id = +req.params.id;
-    let body = req.body;
-    let index = products.findIndex((a)=>a.id === id);
-    if(index>=0){
-        let updated = {id:id, ...body};
-        products[index]=updated;
-        res.send(updated);
-    }else res.status(404).send("Not Found")
-})
-app.delete("/products/:id",function(req,res){
-    let id = +req.params.id;
-    let index = products.findIndex((a)=>a.id === id);
-    if(index>=0){
-        let deleted = products.splice(index,1);
-        res.send(deleted);
-    }else res.status(404).send("Not Found")
-})
-app.get("/orders",function(req,res){
-  res.send(orders);
-});
-app.post("/orders",function(req,res){
   let body = req.body;
-  let newId = orders.length + 1;
-  let order = {id:newId, ...body};
-  orders.push(order);
-  res.send(order);
+  let data = {...body};
+  products.push(data);
+  res.send(data);
 })
-app.post("/login",function(req,res){
-  let {email,password} = req.body;
-  let user = users.find((a)=>a.email===email && a.password===password);
-  if(user){
-    res.send({user:email});
-  }else res.status(401).send("Check Username or password");
+app.delete("/products/:category/:prodCode",function(req,res){
+  let {category,prodCode}=req.params;
+  let index = products.findIndex((a)=>a.category===category && a.prodCode === prodCode);
+  if(index>=0){
+    let deleted = products.splice(index,1);
+    res.send(deleted);
+  }else{
+    res.status(404).send("Not Found")
+  }
 })
-
