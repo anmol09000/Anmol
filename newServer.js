@@ -17,12 +17,7 @@ var port = process.env.PORT||2410;
 app.listen(port, () => console.log(`Node app listening on port ${port}!`));
 
 
-let passport = require("passport");
-let jwt = require("jsonwebtoken");
-let JwtStrategy = require("passport-jwt").Strategy;
-let ExtractJwt = require("passport-jwt").ExtractJwt;
 
-app.use(passport.initialize());
 
 const movies = [
     {
@@ -189,38 +184,11 @@ const movies = [
   ];
   
 
-let expiryTime=300;
 let seats=[];
 
-let params ={
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey : "jwtsecret45123",
-}
-let strategyAll = new JwtStrategy(params, function(token,done){
-    let user = users.find((a)=>a.email === token.email );
-    if(!user){
-        return done(null,false,{message:"check email or password"});
-    }else {
-        return done(null,user);
-    }
-});
 
-passport.use("local",strategyAll);
 
-app.post("/login",function(req,res){
-    let {email,password} = req.body;
-    let user = users.find((a)=>a.email === email && a.password === password);
-    if(user){
-        let payload = {email:user.email}
-        let token = jwt.sign(payload,params.secretOrKey,{
-            algorithm:"HS256",
-            expiresIn:expiryTime,
-        })
-        res.send(token);
-    }else{
-        res.status(401).send("Check email or password");
-    }
-});
+
 
 app.get("/movies",function(req,res){
     let {genre,lang,format,q} = req.query;
