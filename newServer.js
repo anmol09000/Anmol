@@ -5,7 +5,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
   );
     res.header(
     "Access-Control-Allow-Methods",
@@ -17,7 +17,12 @@ var port = process.env.PORT||2410;
 app.listen(port, () => console.log(`Node app listening on port ${port}!`));
 
 
+let passport = require("passport");
+let jwt = require("jsonwebtoken");
+let JwtStrategy = require("passport-jwt").Strategy;
+let ExtractJwt = require("passport-jwt").ExtractJwt;
 
+app.use(passport.initialize());
 
 const movies = [
     {
@@ -181,14 +186,41 @@ const movies = [
   ];
   let users = [
     { email: "test@test.com",password:"testpassword", fname: "ashish", lname: "rawat", married: "No" },
+    { email: "admin@admin.com",password:"adminpassword", fname: "ankit", lname: "lodhi", married: "No" },
   ];
   
 
+let expiryTime=30000;
 let seats=[];
 
+let params ={
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey : "jwtsecret45123",
+}
+let strategyAll = new JwtStrategy(params, function(token,done){
+    let user = users.find((a)=>a.email === token.user.email );
+    if(!user){
+        return done(null,false,{message:"check email or password"});
+    }else {
+        return done(null,user);
+    }
+});
 
+passport.use("local",strategyAll);
 
-
+app.post("/login",function(req,res){
+    let {email,password} = req.body;
+    let user = users.find((a)=>a.email === email && a.password === password);
+    if(user){
+        let token = jwt.sign({user},params.secretOrKey,{
+            algorithm:"HS256",
+            expiresIn:expiryTime,
+        })
+        res.send(token);
+    }else{
+        res.status(401).send("Check email or password");
+    }
+});
 
 app.get("/movies",function(req,res){
     let {genre,lang,format,q} = req.query;
@@ -254,11 +286,24 @@ app.get("/movies/:city/:id", function(req, res) {
         res.sendStatus(404)
     }
 });
-app.post("/seat",function(req,res){
+app.post("/seat",passport.authenticate("local",{session:false}),function(req,res){
     let body = req.body;
-    let seat ={...body};
+    let seat ={...body,email:req.user.email};
     seats.push(seat);
     res.send(seat);
+});
+app.get("/user",passport.authenticate("local",{session:false}),function(req,res){
+    let user = users.find((a)=>a.email === req.user.email);
+    res.send(user);
+})
+app.get("/orders",passport.authenticate("local",{session:false}),function(req,res){
+  let order = seats.filter((a)=>a.email===req.user.email);
+  if(order){
+    res.send(order);
+  }else{
+    res.sendStatus(404);
+  }
+  
 })
 
 
